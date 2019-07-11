@@ -20,7 +20,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         makeLoseZone()
         
         ball.physicsBody?.isDynamic = true
-        ball.physicsBody?.applyImpulse(CGVector(dx: Int.random(in: -3...3), dy: 5)) 
+        ball.physicsBody?.applyImpulse(CGVector(dx: Int.random(in: -3...3), dy: 5))
         
     }
     
@@ -93,6 +93,19 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         loseZone.physicsBody = SKPhysicsBody(rectangleOf: loseZone.size)
         loseZone.physicsBody?.isDynamic = false
         addChild(loseZone)
+    }
+    
+    override func update(_ currentTime: TimeInterval) {
+        var xSpeed = ball.physicsBody!.velocity.dx
+        xSpeed = sqrt(xSpeed * xSpeed)
+        if xSpeed < 10 {
+            ball.physicsBody?.applyImpulse(CGVector(dx: Int.random(in: -3...3), dy: 0))
+        }
+        var ySpeed = ball.physicsBody!.velocity.dy
+        ySpeed = sqrt(ySpeed * ySpeed)
+        if ySpeed < 10 {
+            ball.physicsBody?.applyImpulse(CGVector(dx: 0, dy: Int.random(in: -3...3)))
+        }
     }
     
 }
